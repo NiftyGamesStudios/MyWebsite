@@ -4,13 +4,10 @@ import {
   Code,
   Gamepad2, Gauge,
   Globe,
-  Import,
   Layout,
   Settings,
   Smartphone,
-  Sparkles,
-  Tablet,
-  Zap
+  Sparkles
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
