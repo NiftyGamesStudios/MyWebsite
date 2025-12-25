@@ -1,5 +1,17 @@
 import Link from "next/link"
-import { ArrowRight, Code, Gamepad2, Sparkles, Zap } from "lucide-react"
+import {
+  ArrowRight,
+  Code,
+  Gamepad2, Gauge,
+  Globe,
+  Import,
+  Layout,
+  Settings,
+  Smartphone,
+  Sparkles,
+  Tablet,
+  Zap
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Navbar } from "@/components/navbar"
@@ -8,30 +20,36 @@ import { Footer } from "@/components/footer"
 export default function HomePage() {
   const projects = [
     {
-      title: "Pixel Dungeon Runner",
+      title: "The Key is In The Dice",
       description: "Fast-paced 2D platformer with procedural level generation and smooth animations",
       tech: ["Unity", "C#", "DOTween"],
-      image: "/pixel-art-dungeon-game.jpg",
+      image: "/key-is-in-the-dice.png",
     },
     {
-      title: "Math Quest Adventure",
-      description: "Educational puzzle game that makes learning mathematics fun and engaging",
-      tech: ["Unity", "C#", "UI Toolkit"],
-      image: "/colorful-math-puzzle-game.jpg",
+      title: "Sumo Smash",
+      description: "Online multiplayer 3D game with customizable pucks and physics-based gameplay",
+      tech: ["Unity", "C#", "Blender"],
+      image: "/sumo-smash.png",
     },
     {
-      title: "Casual Match-3",
-      description: "Polished match-3 game with juicy effects and satisfying gameplay",
+      title: "Qwerty Challenge",
+      description: "Drag and drop keyboard game with engaging particle effects and responsive UI",
       tech: ["Unity", "C#", "Particle System"],
-      image: "/match-three-puzzle-game.jpg",
+      image: "/qwerty-challenge.png",
     },
   ]
 
   const skills = [
     { name: "Unity 2D", icon: Gamepad2 },
     { name: "C# Programming", icon: Code },
-    { name: "Game Mechanics", icon: Zap },
-    { name: "UI Animation", icon: Sparkles },
+    { name: "WebGL Games", icon: Globe },
+    { name: "Android Development", icon: Smartphone},
+    { name: "Particle Effects", icon: Sparkles },
+    { name: "Gameplay Systems", icon: Settings },
+    { name: "Game UI / UX", icon: Layout },
+    { name: "Performance Optimization", icon: Gauge }
+
+
   ]
 
   return (
@@ -131,18 +149,17 @@ export default function HomePage() {
               <Card>
                 <CardContent className="pt-6">
                   <p className="text-muted-foreground mb-4 leading-relaxed">
-                    "Excellent work on our mobile game. The code was clean, and the animations were incredibly smooth.
-                    Highly recommend!"
+                    "Great to work with. Communication was clear, and the game features were implemented exactly as discussed. The animations and gameplay felt smooth and polished."
                   </p>
-                  <p className="font-semibold">— Sarah Chen, Studio Director</p>
+                  <p className="font-semibold">— Typing Bird, Studio Director</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardContent className="pt-6">
                   <p className="text-muted-foreground mb-4 leading-relaxed">
-                    "Fast turnaround and professional quality. Helped us optimize our game performance significantly."
+                    "Very responsive and open to feedback. Helped improve gameplay flow and performance, especially for WebGL builds."
                   </p>
-                  <p className="font-semibold">— Mike Rodriguez, Lead Developer</p>
+                  <p className="font-semibold">— Internet Game, Lead Developer</p>
                 </CardContent>
               </Card>
             </div>
