@@ -1,3 +1,4 @@
+"use client"
 import Link from "next/link"
 import {
   ArrowRight,
@@ -21,18 +22,56 @@ export default function HomePage() {
       description: "Fast-paced 2D platformer with procedural level generation and smooth animations",
       tech: ["Unity", "C#", "DOTween"],
       image: "/key-is-in-the-dice.png",
+      orientation: "horizontal",
     },
     {
       title: "Sumo Smash",
       description: "Online multiplayer 3D game with customizable pucks and physics-based gameplay",
       tech: ["Unity", "C#", "Blender"],
       image: "/sumo-smash.png",
+      orientation: "horizontal",
     },
     {
       title: "Qwerty Challenge",
       description: "Drag and drop keyboard game with engaging particle effects and responsive UI",
       tech: ["Unity", "C#", "Particle System"],
       image: "/qwerty-challenge.png",
+      orientation: "horizontal",
+    },
+    {
+      title: "Hangman Mobile",
+      description: "A classic word-guessing game with hints, built for quick and fun gameplay on mobile devices.",
+      tech: ["Unity", "C#", "Dictionary"],
+      image: "/hangman.png",
+      orientation: "vertical",
+    },
+    {
+      title: "Brick Breaker Classic",
+      description: "A modern version of the classic brick breaker game with smooth controls and arcade-style gameplay.",
+      tech: ["Unity", "C#", "Shader Effects"],
+      image: "/brick-breaker-classic.png",
+      orientation: "vertical",
+    },
+    {
+      title: "3D Stack",
+      description: "A timing-based stacking game that challenges players to build the tallest tower possible.",
+      tech: ["Unity", "C#", "3D"],
+      image: "/stack.png",
+      orientation: "vertical",
+    },
+    {
+      title: "Ball Fall",
+      description: "A color-matching game controlled by device tilt, where players catch falling balls with a hoop.",
+      tech: ["Unity", "C#", "Tilt Controls"],
+      image: "/ball-fall.png",
+      orientation: "vertical",
+    },
+    {
+      title: "Fishook",
+      description: "A casual fishing game where players catch as many fish as possible within a time limit.",
+      tech: ["Unity", "C#", "Touch Controls"],
+      image: "/fishook.png",
+      orientation: "vertical",
     },
   ]
 
@@ -49,13 +88,17 @@ export default function HomePage() {
 
   ]
 
+  // split projects into horizontals and verticals so we can render them in separate grids
+  const horizontalProjects = projects.filter((p) => p.orientation !== "vertical")
+  const verticalProjects = projects.filter((p) => p.orientation === "vertical")
+
   return (
     <>
       <Navbar />
       <main className="min-h-screen">
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 px-4 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-linear-to-b from-primary/5 to-transparent pointer-events-none" />
           <div className="container mx-auto relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance">
@@ -66,7 +109,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" asChild>
-                  <Link href="#projects">
+                  <Link href="/#projects">
                     View My Games
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
@@ -83,13 +126,22 @@ export default function HomePage() {
         <section id="projects" className="py-20 px-4 bg-card/50">
           <div className="container mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Featured Projects</h2>
+            {/* Horizontal projects: show above in a 1/2/3 grid (mobile/tablet/desktop) */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {projects.map((project, index) => (
+              {horizontalProjects.map((project, index) => (
                 <Card
-                  key={index}
+                  key={`h-${index}`}
                   className="group overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
                 >
-                  <div className="aspect-video overflow-hidden bg-muted">
+                  <div
+                    className={
+                      `relative overflow-hidden bg-muted ` +
+                      (project.orientation === "vertical" ? "aspect-9/16" : "aspect-video")
+                    }
+                  >
+                    {project.orientation === "vertical" && (
+                      <span className="absolute top-3 left-3 z-10 bg-primary text-white text-xs px-2 py-1 rounded">Mobile</span>
+                    )}
                     <img
                       src={project.image || "/placeholder.svg"}
                       alt={project.title}
@@ -115,8 +167,48 @@ export default function HomePage() {
                 </Card>
               ))}
             </div>
-          </div>
-        </section>
+
+            {/* Vertical (Mobile) projects: show below in a tighter 5-across layout on large screens */}
+            <div className="mt-10">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                {verticalProjects.length === 0 && (
+                  <p className="col-span-full text-center text-muted-foreground">No mobile projects yet.</p>
+                )}
+                {verticalProjects.map((project, index) => (
+                  <Card
+                    key={`v-${index}`}
+                    className="group overflow-hidden hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
+                  >
+                    <div className={`relative overflow-hidden bg-muted aspect-9/16`}>
+                      <span className="absolute top-3 left-3 z-10 bg-primary text-white text-xs px-2 py-1 rounded">Mobile</span>
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle>{project.title}</CardTitle>
+                      <CardDescription className="leading-relaxed">{project.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tech.map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+           </div>
+         </section>
 
         {/* Skills Section */}
         <section className="py-20 px-4">
